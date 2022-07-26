@@ -1,13 +1,61 @@
 # use glob syntax.
 syntax: glob
 
-extern/
-*~
-*.in
-*.pyc
+# Development folders
+.idea/
+.vscode/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
 *.o
 *.so
 *.a
+*.obj
+*.dll
+*.dll.a
+*.lib
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+sdist/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Test / Coverage / Profiling reports
+.pytest_cache
+.coverage
+
+# Others
+extern/
+*~
+*.in
 *.dat
 *.out
 *_wrap.cxx
@@ -40,5 +88,4 @@ tacs/*.cpp
 *.pxi
 *.vtk
 *.cfg
-.vscode
 .DS_Store
