@@ -1,6 +1,7 @@
 import os
 from subprocess import check_output
 import sys
+import shutil
 
 # Numpy/mpi4py must be installed prior to installing TACS
 import numpy
@@ -38,10 +39,45 @@ def get_mpi_flags():
 
     return inc_dirs, lib_dirs, libs
 
-inc_dirs, lib_dirs, libs = get_mpi_flags()
 
-# Add tacs-dev/lib as a runtime directory
-runtime_lib_dirs = get_global_dir(['lib'])
+if sys.platform == "win32":
+
+    # This assumes that MSMPI is installed
+    inc_dirs = [os.environ["MSMPI_INC"]]
+    lib_dirs = [os.environ["MSMPI_LIB64"]]
+    libs = ["msmpi"]
+
+    # Extra arguments (-O3 is optional, but the others are needed)
+    extra_compile_args = ["-O3", "-DMS_WIN64", "-fPIC"]
+    extra_link_args=["-fPIC"]
+
+    # Note:
+    # Windows cannot use runtime library search path. The workaround is to copy 
+    # the tacs library to a known location and add this path to the search path when
+    # the python package is first loaded. This is done in `tacs/__init__.py`.
+    runtime_lib_dirs = []
+
+    if not os.path.exists(os.path.join("tacs", ".lib")):
+        os.makedirs(os.path.join("tacs", ".lib"))
+
+    if os.path.exists(os.path.join("lib", "libtacs.dll.a")):
+        src_dll_path = os.path.join("lib", "libtacs.dll.a")
+        pkg_dll_path = os.path.join("tacs", ".lib", "libtacs.dll.a")
+        shutil.copy(src_dll_path, pkg_dll_path)
+    
+    package_data = {"tacs": [".lib/*"]}
+
+else:
+    inc_dirs, lib_dirs, libs = get_mpi_flags()
+
+    # Add tacs-dev/lib as a runtime directory
+    runtime_lib_dirs = get_global_dir(['lib'])
+
+    # Extra arguments
+    extra_compile_args = ["-O3"]
+    extra_link_args=[]
+
+    package_data = {}
 
 # Relative paths for the include/library directories
 rel_inc_dirs = ['src', 'src/bpmat', 'src/elements', 'src/elements/dynamics',
@@ -68,6 +104,7 @@ exts = []
 for mod in ['TACS', 'elements', 'constitutive', 'functions']:
     exts.append(Ext('tacs.%s'%(mod), sources=['tacs/%s.pyx'%(mod)],
                     include_dirs=inc_dirs, libraries=libs,
+                    extra_compile_args=extra_compile_args, extra_link_args=extra_link_args,
                     library_dirs=lib_dirs, runtime_library_dirs=runtime_lib_dirs))
 
 for e in exts:
@@ -105,4 +142,5 @@ setup(name='tacs',
       ],
       extras_require=optional_dependencies,
       packages=find_packages(include=['tacs*']),
+      package_data=package_data,
       ext_modules=cythonize(exts, include_path=inc_dirs))

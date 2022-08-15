@@ -4,8 +4,18 @@ gradient-based design optimization.
 '''
 
 import os
+import sys
 
 __all__ = []
+
+if sys.platform == "win32":
+    # Add TACS library to library search path when package is loaded.
+    lib_path = os.path.join(os.path.dirname(__file__), ".lib")
+    if sys.version_info >= (3, 8):
+        # In python >=3.8, we must use this to include dynamic libraries
+        os.add_dll_directory(lib_path)
+    else:
+        os.environ['PATH'] = lib_path + os.pathsep + os.environ['PATH']
 
 def get_cython_include():
     '''
