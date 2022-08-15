@@ -1,0 +1,58 @@
+# Do not modify this file. Copy this file to Makefile.in and then modify it.
+
+# In order to get TACS to compile, you'll need to fill in the
+# following path information. Some of the items below are required
+# only if you're going to use the python interface.
+
+# the full path to the root TACS directory
+TACS_DIR = ${HOME}/git/tacs
+CXX = mpicxx
+RM = rm -f
+PYTHON = python
+PIP = pip
+
+# Set up for parallel make
+MAKE = make -j 8
+
+# Set the ar flags
+AR_FLAGS = rcs
+
+# Flags for debugging and regular compilation versions
+EXTRA_DEBUG_CC_FLAGS = -fPIC -g 
+EXTRA_CC_FLAGS = -fPIC -O3
+
+# Use this if you have problems with mpich
+# TACS_DEF = -DMPICH_IGNORE_CXX_SEEK
+
+# Defines whether to use static or dynamic linking
+# TACS_LD_CMD=${TACS_DIR}/lib/libtacs.a
+TACS_LD_CMD=-L${TACS_DIR}/lib/ -Wl,-rpath,${TACS_DIR}/lib -ltacs
+
+# For linux systems, use the following settings:
+SO_EXT=dll.a
+SO_LINK_FLAGS=-fPIC -shared
+
+# For MAC OS X, use the following settings:
+# SO_EXT=so
+# SO_LINK_FLAGS=-fPIC -dynamiclib
+
+# This uses the default installation of LAPACK. 
+# Use an optimized version of LAPACK if available.
+# You may also have to include -lblas as well.
+
+# NOTE: For Windows build, we statically link LAPACK/BLAS to help with the python interface
+
+LAPACK_LIBS = -Wl,-Bstatic -llapack -lpthread -lblas -lgfortran -lquadmath
+
+# For MAC OSX use the accelerate framework
+# LAPACK_LIBS=-framework accelerate
+
+# This uses the default installation of METIS.
+# NOTE: For Windows build, we statically link METIS to help with the python interface
+
+METIS_LIB = -Wl,-Bstatic -lmetis
+
+# AMD is a set of routines for ordering matrices. It is not required by default.
+
+# AMD_INCLUDE = -I${TACS_DIR}/extern/AMD/Include -I${TACS_DIR}/extern/UFconfig
+# AMD_LIBS = ${TACS_DIR}/extern/AMD/Lib/libamd.a ${TACS_DIR}/extern/UFconfig/libufconfig.a

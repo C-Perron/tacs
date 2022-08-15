@@ -1,0 +1,5 @@
+# This set the compiler to mingw32 for setuptools.
+# Note, despite the name, this option also works for MingGW-w64 or similar GNU-based compiler.
+
+[build]
+compiler=mingw32
