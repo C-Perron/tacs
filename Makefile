@@ -92,8 +92,8 @@ complex_debug: TACS_IS_COMPLEX=true
 complex_debug: debug
 
 clean:
-	${RM} lib/libtacs.a lib/libtacs.so
-	${RM} tacs/*.so tacs/*.cpp
+	${RM} lib/libtacs.a lib/libtacs.${SO_EXT}
+	${RM} tacs/*.so tacs/*.cpp tacs/*.pyd tacs/*.pxi
 	@for subdir in $(TACS_SUBDIRS) ; do \
 	  echo "making $@ in $$subdir"; \
 	  echo; \
