@@ -143,4 +143,4 @@ setup(name='tacs',
       extras_require=optional_dependencies,
       packages=find_packages(include=['tacs*']),
       package_data=package_data,
-      ext_modules=cythonize(exts, include_path=inc_dirs))
+      ext_modules=cythonize(exts, include_path=inc_dirs, language_level = "3"))

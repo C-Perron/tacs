@@ -34,9 +34,9 @@ from cpython cimport PyObject, Py_INCREF
 include "TacsDefs.pxi"
 
 # Import the definitions
-from TACS cimport *
-from constitutive cimport *
-from elements cimport *
+from .TACS cimport *
+from .constitutive cimport *
+from .elements cimport *
 
 # Include the mpi4py header
 cdef extern from "mpi-compat.h":
@@ -1199,7 +1199,8 @@ cdef class SpringRefFrameTransform(SpringTransform):
     The local `y` is given by the cross product of local `z` and `x`.
     """
     def __cinit__(self, axis1, axis2):
-        cdef TacsScalar a1[3], a2[3]
+        cdef TacsScalar a1[3]
+        cdef TacsScalar a2[3]
         a1[0] = axis1[0]
         a1[1] = axis1[1]
         a1[2] = axis1[2]

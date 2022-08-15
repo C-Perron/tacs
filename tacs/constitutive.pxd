@@ -25,8 +25,8 @@ from libc.string cimport const_char
 from cpython cimport PyObject, Py_INCREF
 
 # Import from TACS for definitions
-cimport TACS
-from TACS cimport *
+from . cimport TACS
+from .TACS cimport *
 
 cdef extern from "TACSMaterialProperties.h":
     cdef cppclass TACSMaterialProperties(TACSObject):

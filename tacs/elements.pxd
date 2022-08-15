@@ -23,8 +23,8 @@ cimport numpy as np
 import numpy as np
 
 # Import from constitutive for definitions
-from constitutive cimport *
-from TACS cimport *
+from .constitutive cimport *
+from .TACS cimport *
 
 cdef extern from "TACSElementTypes.h":
     const int TACS_ELEMENT_DENSITY

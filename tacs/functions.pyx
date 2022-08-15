@@ -31,8 +31,8 @@ from libc.stdlib cimport malloc, free
 from cpython cimport PyObject, Py_INCREF
 
 # Import the definitions
-from TACS cimport *
-from functions cimport *
+from .TACS cimport *
+from .functions cimport *
 
 # Include the definitions
 include "TacsDefs.pxi"
@@ -126,7 +126,8 @@ cdef class MomentOfInertia(Function):
         Wrap the function MomentOfInertia
         """
         cdef int cmFlag;
-        cdef double d1[3], d2[3]
+        cdef double d1[3]
+        cdef double d2[3]
         d1[0] = d1[1] = d1[2] = 0.0
         d2[0] = d2[1] = d2[2] = 0.0
 

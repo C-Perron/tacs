@@ -22,7 +22,7 @@ cimport numpy as np
 from libc.string cimport const_char
 
 # Import from TACS for definitions
-from TACS cimport *
+from .TACS cimport *
 
 cdef extern from "TACSFunction.h":
     enum FunctionDomain:
