@@ -1,0 +1,90 @@
+schema_version: 1
+
+context:
+  name: tacs
+  mpi: ${{ mpi | default("openmpi") }}
+
+package:
+  name: tacs
+  version: "3.12.3"
+
+source:
+  git: ../.
+
+build:
+  number: 0
+  variant:
+    use_keys:
+      - scalar
+    # Higher integers make this variant less preferred by the solver
+    down_prioritize_variant: ${{ 1 if scalar == "complex" else 0 }}
+
+requirements:
+  build:
+    - python
+    - numpy >=1.25
+    - make
+    - mpi4py >=4.0.3,<5.0.0
+    - cython >=3.0.0
+    - setuptools
+    - ${{ stdlib('c') }}
+    - ${{ compiler('cxx') }}
+
+  host:
+    - pip
+    - python
+    - numpy >=1.25
+    - libblas
+    - liblapack
+    - metis ==5.1.0
+    - tecio
+    - mpi4py >=4.0.3,<5.0.0
+    - cython >=3.0.0
+    - setuptools
+    - ${{ mpi }}
+
+  run:
+    - python
+    - numpy
+    - scipy
+    - mpi4py
+    - pynastran >=1.4.0
+    - numba >=0.55.2
+    - mdolab-baseclasses
+
+tests:
+  - python:
+      imports:
+        - tacs
+        - tacs.pytacs
+        - tacs.problems
+        - tacs.constraints
+        - tacs.TACS
+        - tacs.elements
+        - tacs.functions
+        - tacs.constitutive
+      pip_check: false
+  - files:
+      source:
+        - tests
+    requirements:
+      run:
+        - testflo
+    script:
+      -
+      - test -f $PREFIX/bin/f5tovtk
+      - test -f $PREFIX/bin/f5totec
+      # - export OMPI_MCA_btl=self,tcp
+      # - export OMPI_MCA_rmaps_base_oversubscribe=1
+      # - export UCX_TLS=tcp,self,sm
+      # - export UCX_NET_DEVICES=lo
+      # - rm tests/integration_tests/test_mphys*
+      # - if: linux64
+      #   then: testflo --pre_announce --timeout 120 tests/
+
+about:
+  license: Apache-2.0
+  summary: Parallel finite-element analysis package
+  homepage: https://github.com/smdogroup/tacs
+  documentation: https://smdogroup.github.io/tacs/
+

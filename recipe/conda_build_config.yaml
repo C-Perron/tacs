@@ -1,0 +1,44 @@
+# Inspired from conda-forge-pinning
+c_compiler:
+  - gcc                        # [linux]
+  - clang                      # [osx]
+  - vs2022                     # [win]
+c_compiler_version:            # [unix]
+  - 15                         # [linux]
+  - 21                         # [osx]
+c_stdlib:
+  - sysroot                    # [linux]
+  - macosx_deployment_target   # [osx]
+  - vs                         # [win]
+c_stdlib_version:
+  - 2.17                       # [linux]
+  - 11.0                       # [osx]
+cxx_compiler:
+  - gxx                        # [linux]
+  - clangxx                    # [osx]
+  - vs2022                     # [win]
+cxx_compiler_version:          # [unix]
+  - 15                         # [linux]
+  - 21                         # [osx]
+
+libblas:
+  - 3.9.* *netlib
+liblapack:
+  - 3.9.* *netlib
+
+mpi:
+  - openmpi
+openmpi:
+  - 4.1
+  - 5.0
+
+scalar:
+  - real
+  - complex
+
+python:
+  - 3.11.* *_cpython
+  - 3.12.* *_cpython
+  - 3.13.* *_cp313
+python_impl:
+  - cpython
