@@ -435,7 +435,7 @@ Defaults to <cite>m</cite> (mass).</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tacs.pytacs.pyTACS.selectCompIDs">
-<span class="sig-name descname"><span class="pre">selectCompIDs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeBounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nGroup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeOp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'or'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excludeOp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'or'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projectVector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tacs/pytacs.html#pyTACS.selectCompIDs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tacs.pytacs.pyTACS.selectCompIDs" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">selectCompIDs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeBounds</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nGroup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeOp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'or'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">excludeOp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'or'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projectVector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjacentTo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/tacs/pytacs.html#pyTACS.selectCompIDs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tacs.pytacs.pyTACS.selectCompIDs" title="Link to this definition">¶</a></dt>
 <dd><p>This is the most important function of the entire setup
 process.
 The basic idea is as follows: We have a list of nComp
@@ -532,6 +532,32 @@ components.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># will select all components and assign a design variable</span>
 <span class="c1"># group to each one.</span>
 <span class="n">selectCompIDs</span><span class="p">(</span><span class="n">nGroup</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>5. adjacentTo, integer, string, list of integers and/or strings:
+Restrict the selection to components that are adjacent to any of
+the components matched by this argument.
+Shell components are adjacent when they share an element edge and
+1D components (e.g. beams, rods) are adjacent when they share an
+element end node.
+The argument is matched against the component descriptions in the
+same way as 'include'.
+If 'include' is not given, every neighbour of the matched components
+is selected, otherwise only the 'include' components that are also
+neighbours are selected.
+A matched component is not selected on account of being matched, but
+it will be selected if it is itself adjacent to another matched
+component (e.g. when 'adjacentTo' matches several skin panels that
+touch each other). Use 'exclude' to leave such components out.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will select the ribs and spars that are adjacent to the</span>
+<span class="c1"># 'USkin_03' component.</span>
+<span class="n">selectCompIDs</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">"SPAR"</span><span class="p">,</span> <span class="s2">"RIB"</span><span class="p">],</span> <span class="n">adjacentTo</span><span class="o">=</span><span class="s2">"USkin_03"</span><span class="p">)</span>
+
+<span class="c1"># This will select every component that is adjacent to any of</span>
+<span class="c1"># the upper skin panels, except the upper skin panels themselves</span>
+<span class="c1"># (which are adjacent to each other).</span>
+<span class="n">selectCompIDs</span><span class="p">(</span><span class="n">adjacentTo</span><span class="o">=</span><span class="s2">"USkin"</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s2">"USkin"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>includeOp, str: 'and' or 'or'.
