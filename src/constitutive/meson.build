@@ -1,0 +1,28 @@
+tacs_src += files(
+    [
+        'TACSMaterialProperties.cpp',
+        'TACSConstitutive.cpp',
+        'TACSConstitutiveVerification.cpp',
+        'TACSPlaneStressConstitutive.cpp',
+        'TACSSolidConstitutive.cpp',
+        'TACSShellConstitutive.cpp',
+        'TACSIsoShellConstitutive.cpp',
+        'TACSLamParamSmearedShellConstitutive.cpp',
+        'TACSLamParamFullShellConstitutive.cpp',
+        'TACSGeneralMassConstitutive.cpp',
+        'TACSPointMassConstitutive.cpp',
+        'TACSGeneralSpringConstitutive.cpp',
+        'TACSDOFSpringConstitutive.cpp',
+        'TACSCompositeShellConstitutive.cpp',
+        'TACSBeamConstitutive.cpp',
+        'TACSBasicBeamConstitutive.cpp',
+        'TACSIsoTubeBeamConstitutive.cpp',
+        'TACSIsoRectangleBeamConstitutive.cpp',
+        'TACSPhaseChangeMaterialConstitutive.cpp',
+        'TACSBladeStiffenedShellConstitutive.cpp',
+        'TACSSmearedCompositeShellConstitutive.cpp',
+        'TACSGaussianProcessModel.cpp',
+        'TACSPanelGPs.cpp',
+        'TACSGPBladeStiffenedShellConstitutive.cpp',
+    ]
+)

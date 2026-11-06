@@ -1,0 +1,30 @@
+tacs_src += files(
+    [
+        'FElibrary.cpp',
+        'TACSElement.cpp',
+        'TACSElement2D.cpp',
+        'TACSElement3D.cpp',
+        'TACSElementTypes.cpp',
+        'TACSLinearElasticity.cpp',
+        'TACSThermoelasticity.cpp',
+        'TACSHeatConduction.cpp',
+        'TACSPlateModel.cpp',
+        'TACSThermoelasticPlateModel.cpp',
+        'TACSNeohookean.cpp',
+        'TACSTraction2D.cpp',
+        'TACSTraction3D.cpp',
+        'TACSPressure2D.cpp',
+        'TACSPressure3D.cpp',
+        'TACSInertialForce2D.cpp',
+        'TACSInertialForce3D.cpp',
+        'TACSCentrifugalForce3D.cpp',
+        'TACSConvectiveTraction2D.cpp',
+        'TACSConvectiveTraction3D.cpp',
+        'TACSElementVerification.cpp',
+        'TACSPCMHeatConduction.cpp',
+    ]
+)
+
+subdir('basis')
+subdir('dynamics')
+subdir('shell')

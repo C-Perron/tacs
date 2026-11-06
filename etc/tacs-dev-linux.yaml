@@ -1,0 +1,24 @@
+name: tacs-dev
+channels:
+  - conda-forge
+dependencies:
+  - c-compiler
+  - cxx-compiler
+  - cython>=3.0,<=3.2.9
+  - cython-lint
+  - libblas=*=*netlib
+  - liblapack=*=*netlib
+  - meson>=1.8.2,<=1.9.0
+  - metis==5.1.0
+  - mpi4py
+  - ninja
+  - numpy>=2.0
+  - openmpi>=4.0
+  - pip
+  - pkg-config
+  - pylint
+  - pytest
+  - python=3.13.*
+  - ruff
+  - scipy
+  - setuptools

@@ -1,0 +1,6 @@
+option('enable-complex', type: 'boolean', value : false, description: 'Enable complex numbers')
+option('install-in-source', type: 'boolean', value: true, description: 'Flag to install extension in source directory')
+option('metis-inc', type : 'string', value: '/usr/local/include', description: 'Path to METIS header')
+option('metis-lib', type : 'string', value: '/usr/local/lib', description: 'Path to METIS library')
+option('msmpi-inc', type : 'string', value: '"C:\Program Files (x86)\Microsoft SDKs\MPI\Include"', description: 'Path to MSMPI header')
+option('msmpi-lib', type : 'string', value: '"C:\Program Files (x86)\Microsoft SDKs\MPI\Lib\x64"', description: 'Path to MSMPI library')
